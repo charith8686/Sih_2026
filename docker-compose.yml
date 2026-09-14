@@ -1,0 +1,27 @@
+﻿version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: legal_metrology_backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/outputs:/app/outputs
+      - ./backend/uploads:/app/uploads
+      - ./backend/legal_metrology.db:/app/legal_metrology.db
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: legal_metrology_frontend
+    ports:
+      - "80:80"
+      - "5173:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
