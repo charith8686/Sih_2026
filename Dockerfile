@@ -20,6 +20,8 @@ COPY backend/ .
 # Ensure uploads and outputs directories exist
 RUN mkdir -p uploads outputs
 
+# Hugging Face Spaces & Cloud port support
+EXPOSE 7860
 EXPOSE 8000
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT:-7860}"]
