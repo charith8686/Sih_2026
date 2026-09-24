@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../../config";
 import { resolveImageUrl } from "../../utils/imageUrl";
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
@@ -22,7 +23,7 @@ export const ManufacturerViolations = ({ onNavigate }) => {
 
   const fetchViolations = () => {
     setLoading(true);
-    fetch(`http://127.0.0.1:8000/api/manufacturer/violations`, {
+    fetch(`${API_BASE_URL}/api/manufacturer/violations`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then((res) => res.json())
@@ -63,7 +64,7 @@ export const ManufacturerViolations = ({ onNavigate }) => {
       try {
         const formData = new FormData();
         formData.append("file", selectedFile);
-        const upRes = await fetch(`http://127.0.0.1:8000/api/upload-evidence`, {
+        const upRes = await fetch(`${API_BASE_URL}/api/upload-evidence`, {
           method: "POST",
           headers: { Authorization: `Bearer ${token}` },
           body: formData
@@ -78,7 +79,7 @@ export const ManufacturerViolations = ({ onNavigate }) => {
     }
 
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/manufacturer/violations/${selectedViolation.id}/corrective-action`, {
+      const res = await fetch(`${API_BASE_URL}/api/manufacturer/violations/${selectedViolation.id}/corrective-action`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -243,7 +244,7 @@ export const ManufacturerViolations = ({ onNavigate }) => {
                       onClick={async () => {
                         if (!window.confirm(`Delete statutory notice ${v.violation_code}?`)) return;
                         try {
-                          const res = await fetch(`http://127.0.0.1:8000/api/manufacturer/violations/${v.id}`, {
+                          const res = await fetch(`${API_BASE_URL}/api/manufacturer/violations/${v.id}`, {
                             method: "DELETE",
                             headers: { Authorization: `Bearer ${token}` }
                           });

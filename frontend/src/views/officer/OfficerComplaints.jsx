@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../../config";
 import { resolveImageUrl } from "../../utils/imageUrl";
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
@@ -27,7 +28,7 @@ export const OfficerComplaints = ({ onNavigate }) => {
 
   const fetchComplaints = () => {
     setLoading(true);
-    fetch(`http://127.0.0.1:8000/api/officer/complaints`, {
+    fetch(`${API_BASE_URL}/api/officer/complaints`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then((res) => res.json())
@@ -61,7 +62,7 @@ export const OfficerComplaints = ({ onNavigate }) => {
     setActionLoading(true);
 
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/officer/complaints/${verifyModal.id}/verify`, {
+      const res = await fetch(`${API_BASE_URL}/api/officer/complaints/${verifyModal.id}/verify`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -99,7 +100,7 @@ export const OfficerComplaints = ({ onNavigate }) => {
     setActionLoading(true);
 
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/officer/complaints/${rejectModal.id}/reject`, {
+      const res = await fetch(`${API_BASE_URL}/api/officer/complaints/${rejectModal.id}/reject`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -290,7 +291,7 @@ export const OfficerComplaints = ({ onNavigate }) => {
                           onClick={async () => {
                             if (!window.confirm(`Delete grievance record ${c.complaint_code}?`)) return;
                             try {
-                              const res = await fetch(`http://127.0.0.1:8000/api/officer/complaints/${c.id}`, {
+                              const res = await fetch(`${API_BASE_URL}/api/officer/complaints/${c.id}`, {
                                 method: "DELETE",
                                 headers: { Authorization: `Bearer ${token}` }
                               });

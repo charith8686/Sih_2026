@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../../config";
 import { resolveImageUrl } from "../../utils/imageUrl";
 import React, { useState, useEffect, useRef } from "react";
 import { useAuth } from "../../context/AuthContext";
@@ -71,7 +72,7 @@ export const ManufacturerCompliance = ({ onNavigate }) => {
     formData.append("multi_pass", "false");
 
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/ocr`, {
+      const res = await fetch(`${API_BASE_URL}/api/ocr`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
         body: formData
@@ -109,7 +110,7 @@ export const ManufacturerCompliance = ({ onNavigate }) => {
 
     setSavingProduct(true);
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/manufacturer/products`, {
+      const res = await fetch(`${API_BASE_URL}/api/manufacturer/products`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

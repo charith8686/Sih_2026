@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../../config";
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { CircularOrbitLayout } from "../../components/CircularOrbitLayout";
@@ -7,7 +8,7 @@ export const UserDashboard = ({ onNavigate }) => {
   const [data, setData] = useState(null);
 
   const fetchDashboard = () => {
-    fetch(`http://127.0.0.1:8000/api/user/dashboard`, {
+    fetch(`${API_BASE_URL}/api/user/dashboard`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then((res) => res.json())

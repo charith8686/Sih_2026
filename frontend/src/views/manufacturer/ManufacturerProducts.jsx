@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../../config";
 ﻿import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { StatusBadge } from "../../components/StatusBadge";
@@ -18,7 +19,7 @@ export const ManufacturerProducts = ({ onNavigate }) => {
   const [msg, setMsg] = useState(null);
 
   const fetchProducts = () => {
-    fetch(`http://127.0.0.1:8000/api/manufacturer/products`, {
+    fetch(`${API_BASE_URL}/api/manufacturer/products`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then((r) => r.json())
@@ -35,7 +36,7 @@ export const ManufacturerProducts = ({ onNavigate }) => {
     e.preventDefault();
     setSaving(true);
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/manufacturer/products`, {
+      const res = await fetch(`${API_BASE_URL}/api/manufacturer/products`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -66,7 +67,7 @@ export const ManufacturerProducts = ({ onNavigate }) => {
   const handleDelete = async (id, code) => {
     if (!window.confirm(`Delete SKU "${code || id}"?`)) return;
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/manufacturer/products/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/manufacturer/products/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` }
       });

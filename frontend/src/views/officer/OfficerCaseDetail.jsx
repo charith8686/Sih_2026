@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../../config";
 import { resolveImageUrl } from "../../utils/imageUrl";
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
@@ -19,7 +20,7 @@ export const OfficerCaseDetail = ({ caseId, onNavigate }) => {
 
   const fetchCaseDetail = () => {
     setLoading(true);
-    fetch(`http://127.0.0.1:8000/api/officer/cases/${caseId}`, {
+    fetch(`${API_BASE_URL}/api/officer/cases/${caseId}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then((res) => {
@@ -44,7 +45,7 @@ export const OfficerCaseDetail = ({ caseId, onNavigate }) => {
     setActionLoading(true);
 
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/officer/corrective-actions/${targetCa.id}/decision`, {
+      const res = await fetch(`${API_BASE_URL}/api/officer/corrective-actions/${targetCa.id}/decision`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

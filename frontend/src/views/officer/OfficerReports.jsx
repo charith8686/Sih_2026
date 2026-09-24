@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../../config";
 ﻿import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 
@@ -7,7 +8,7 @@ export const OfficerReports = () => {
   const [selected, setSelected] = useState(null);
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/officer/inspections`, {
+    fetch(`${API_BASE_URL}/api/officer/inspections`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then((r) => r.json())

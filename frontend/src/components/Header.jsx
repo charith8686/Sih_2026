@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../config";
 ﻿import React, { useState, useEffect, useRef } from "react";
 import { useAuth } from "../context/AuthContext";
 
@@ -14,7 +15,7 @@ export const Header = ({ currentPath, onNavigate, onToggleSidebar }) => {
   const fetchNotifications = async () => {
     if (!token) return;
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/notifications`, {
+      const res = await fetch(`${API_BASE_URL}/api/notifications`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.ok) {
@@ -48,7 +49,7 @@ export const Header = ({ currentPath, onNavigate, onToggleSidebar }) => {
 
   const markAsRead = async (id, actionUrl) => {
     try {
-      await fetch(`http://127.0.0.1:8000/api/notifications/${id}/read`, {
+      await fetch(`${API_BASE_URL}/api/notifications/${id}/read`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -64,7 +65,7 @@ export const Header = ({ currentPath, onNavigate, onToggleSidebar }) => {
 
   const markAllAsRead = async () => {
     try {
-      await fetch(`http://127.0.0.1:8000/api/notifications/read-all`, {
+      await fetch(`${API_BASE_URL}/api/notifications/read-all`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -77,7 +78,7 @@ export const Header = ({ currentPath, onNavigate, onToggleSidebar }) => {
   const deleteNotification = async (e, id) => {
     e.stopPropagation();
     try {
-      await fetch(`http://127.0.0.1:8000/api/notifications/${id}`, {
+      await fetch(`${API_BASE_URL}/api/notifications/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -90,7 +91,7 @@ export const Header = ({ currentPath, onNavigate, onToggleSidebar }) => {
   const clearAllNotifications = async () => {
     if (!window.confirm("Clear all notifications?")) return;
     try {
-      await fetch(`http://127.0.0.1:8000/api/notifications`, {
+      await fetch(`${API_BASE_URL}/api/notifications`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` }
       });

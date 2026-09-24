@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../../config";
 import { resolveImageUrl } from "../../utils/imageUrl";
 import React, { useState, useEffect, useRef } from "react";
 import { useAuth } from "../../context/AuthContext";
@@ -69,7 +70,7 @@ export const UserScanner = ({ onNavigate }) => {
       const headers = {};
       if (token) headers["Authorization"] = `Bearer ${token}`;
 
-      const res = await fetch(`http://127.0.0.1:8000/api/ocr`, {
+      const res = await fetch(`${API_BASE_URL}/api/ocr`, {
         method: "POST",
         headers,
         body: formData
@@ -107,7 +108,7 @@ export const UserScanner = ({ onNavigate }) => {
     const ruleId = failedCategory?.rule_id || "LM-06";
 
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/user/complaints`, {
+      const res = await fetch(`${API_BASE_URL}/api/user/complaints`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

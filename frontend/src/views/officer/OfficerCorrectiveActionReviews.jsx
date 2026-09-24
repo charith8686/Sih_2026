@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../../config";
 import { resolveImageUrl } from "../../utils/imageUrl";
 ﻿import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
@@ -17,7 +18,7 @@ export const OfficerCorrectiveActionReviews = ({ onNavigate }) => {
 
   const fetchCAs = () => {
     setLoading(true);
-    fetch(`http://127.0.0.1:8000/api/officer/corrective-actions`, {
+    fetch(`${API_BASE_URL}/api/officer/corrective-actions`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then((res) => res.json())
@@ -46,7 +47,7 @@ export const OfficerCorrectiveActionReviews = ({ onNavigate }) => {
     if (e) e.stopPropagation();
     if (!window.confirm(`Delete corrective action record "${code || id}"?`)) return;
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/officer/corrective-actions/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/officer/corrective-actions/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -67,7 +68,7 @@ export const OfficerCorrectiveActionReviews = ({ onNavigate }) => {
     setActionLoading(true);
 
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/officer/corrective-actions/${selectedCa.id}/decision`, {
+      const res = await fetch(`${API_BASE_URL}/api/officer/corrective-actions/${selectedCa.id}/decision`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

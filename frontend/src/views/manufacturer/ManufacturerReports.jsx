@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../../config";
 ﻿import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 
@@ -11,9 +12,9 @@ export const ManufacturerReports = () => {
   useEffect(() => {
     if (!token) return;
     Promise.all([
-      fetch(`http://127.0.0.1:8000/api/manufacturer/products`, { headers: { Authorization: `Bearer ${token}` } }).then(r => r.json()),
-      fetch(`http://127.0.0.1:8000/api/manufacturer/violations`, { headers: { Authorization: `Bearer ${token}` } }).then(r => r.json()),
-      fetch(`http://127.0.0.1:8000/api/manufacturer/corrective-actions`, { headers: { Authorization: `Bearer ${token}` } }).then(r => r.json())
+      fetch(`${API_BASE_URL}/api/manufacturer/products`, { headers: { Authorization: `Bearer ${token}` } }).then(r => r.json()),
+      fetch(`${API_BASE_URL}/api/manufacturer/violations`, { headers: { Authorization: `Bearer ${token}` } }).then(r => r.json()),
+      fetch(`${API_BASE_URL}/api/manufacturer/corrective-actions`, { headers: { Authorization: `Bearer ${token}` } }).then(r => r.json())
     ])
       .then(([prods, vios, acts]) => {
         setProducts(prods || []);

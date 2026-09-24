@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../../config";
 import { resolveImageUrl } from "../../utils/imageUrl";
 ﻿import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
@@ -14,7 +15,7 @@ export const ManufacturerCorrectiveActions = ({ onNavigate }) => {
 
   const fetchActions = () => {
     setLoading(true);
-    fetch(`http://127.0.0.1:8000/api/manufacturer/corrective-actions`, {
+    fetch(`${API_BASE_URL}/api/manufacturer/corrective-actions`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then((r) => r.json())
@@ -30,7 +31,7 @@ export const ManufacturerCorrectiveActions = ({ onNavigate }) => {
   const handleDelete = async (id, code) => {
     if (!window.confirm(`Delete corrective action record "${code || id}"?`)) return;
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/manufacturer/corrective-actions/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/manufacturer/corrective-actions/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` }
       });

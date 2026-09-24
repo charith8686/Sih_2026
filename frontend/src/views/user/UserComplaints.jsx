@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../../config";
 import { resolveImageUrl } from "../../utils/imageUrl";
 ﻿import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
@@ -21,7 +22,7 @@ export const UserComplaints = ({ onNavigate }) => {
 
   const fetchComplaints = () => {
     setLoading(true);
-    fetch(`http://127.0.0.1:8000/api/user/complaints`, {
+    fetch(`${API_BASE_URL}/api/user/complaints`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then((res) => res.json())
@@ -79,7 +80,7 @@ export const UserComplaints = ({ onNavigate }) => {
       try {
         const formData = new FormData();
         formData.append("file", selectedFile);
-        const upRes = await fetch(`http://127.0.0.1:8000/api/upload-evidence`, {
+        const upRes = await fetch(`${API_BASE_URL}/api/upload-evidence`, {
           method: "POST",
           headers: { Authorization: `Bearer ${token}` },
           body: formData
@@ -100,7 +101,7 @@ export const UserComplaints = ({ onNavigate }) => {
     const manufacturerName = lastScan?.manufacturerName || "ABC Foods Pvt Ltd";
 
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/user/complaints`, {
+      const res = await fetch(`${API_BASE_URL}/api/user/complaints`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -244,7 +245,7 @@ export const UserComplaints = ({ onNavigate }) => {
                       onClick={async () => {
                         if (!window.confirm(`Withdraw grievance ${c.complaint_code}?`)) return;
                         try {
-                          const res = await fetch(`http://127.0.0.1:8000/api/user/complaints/${c.id}`, {
+                          const res = await fetch(`${API_BASE_URL}/api/user/complaints/${c.id}`, {
                             method: "DELETE",
                             headers: { Authorization: `Bearer ${token}` }
                           });

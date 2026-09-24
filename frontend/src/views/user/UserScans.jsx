@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../../config";
 import { resolveImageUrl } from "../../utils/imageUrl";
 ﻿import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
@@ -13,7 +14,7 @@ export const UserScans = ({ onNavigate }) => {
 
   const fetchScans = () => {
     setLoading(true);
-    fetch(`http://127.0.0.1:8000/api/user/scans`, {
+    fetch(`${API_BASE_URL}/api/user/scans`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then((res) => res.json())
@@ -29,7 +30,7 @@ export const UserScans = ({ onNavigate }) => {
   const handleDelete = async (id, filename) => {
     if (!window.confirm(`Delete scan record for "${filename || "Package"}"?`)) return;
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/user/scans/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/user/scans/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` }
       });

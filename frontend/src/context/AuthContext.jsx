@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../config";
 ﻿import React, { createContext, useContext, useState, useEffect } from "react";
 
 const AuthContext = createContext(null);
@@ -13,7 +14,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     if (token) {
       // Verify token with backend
-      fetch(`http://127.0.0.1:8000/api/auth/me`, {
+      fetch(`${API_BASE_URL}/api/auth/me`, {
         headers: { Authorization: `Bearer ${token}` }
       })
         .then((res) => {
@@ -34,7 +35,7 @@ export const AuthProvider = ({ children }) => {
   }, [token]);
 
   const login = async (email, password, role) => {
-    const res = await fetch(`http://127.0.0.1:8000/api/auth/login`, {
+    const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password, role })

@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../../config";
 ﻿import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { StatusBadge } from "../../components/StatusBadge";
@@ -15,7 +16,7 @@ export const OfficerViolations = ({ onNavigate }) => {
 
   const fetchViolations = () => {
     setLoading(true);
-    fetch(`http://127.0.0.1:8000/api/officer/violations`, {
+    fetch(`${API_BASE_URL}/api/officer/violations`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then((res) => res.json())
@@ -33,7 +34,7 @@ export const OfficerViolations = ({ onNavigate }) => {
     if (!selectedVio) return;
     setUpdating(true);
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/officer/violations/${selectedVio.id}/status`, {
+      const res = await fetch(`${API_BASE_URL}/api/officer/violations/${selectedVio.id}/status`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -58,7 +59,7 @@ export const OfficerViolations = ({ onNavigate }) => {
       return;
     }
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/officer/violations/${v.id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/officer/violations/${v.id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` }
       });

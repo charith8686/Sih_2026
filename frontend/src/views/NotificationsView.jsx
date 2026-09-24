@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../config";
 ﻿import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 
@@ -10,7 +11,7 @@ export const NotificationsView = ({ onNavigate }) => {
 
   const fetchNotifications = () => {
     setLoading(true);
-    fetch(`http://127.0.0.1:8000/api/notifications`, {
+    fetch(`${API_BASE_URL}/api/notifications`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then((res) => res.json())
@@ -28,7 +29,7 @@ export const NotificationsView = ({ onNavigate }) => {
 
   const markAsRead = async (id, actionUrl) => {
     try {
-      await fetch(`http://127.0.0.1:8000/api/notifications/${id}/read`, {
+      await fetch(`${API_BASE_URL}/api/notifications/${id}/read`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -43,7 +44,7 @@ export const NotificationsView = ({ onNavigate }) => {
 
   const markAllAsRead = async () => {
     try {
-      await fetch(`http://127.0.0.1:8000/api/notifications/read-all`, {
+      await fetch(`${API_BASE_URL}/api/notifications/read-all`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -56,7 +57,7 @@ export const NotificationsView = ({ onNavigate }) => {
   const deleteNotification = async (e, id) => {
     e.stopPropagation();
     try {
-      await fetch(`http://127.0.0.1:8000/api/notifications/${id}`, {
+      await fetch(`${API_BASE_URL}/api/notifications/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -69,7 +70,7 @@ export const NotificationsView = ({ onNavigate }) => {
   const clearAllNotifications = async () => {
     if (!window.confirm("Clear all notifications?")) return;
     try {
-      await fetch(`http://127.0.0.1:8000/api/notifications`, {
+      await fetch(`${API_BASE_URL}/api/notifications`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` }
       });

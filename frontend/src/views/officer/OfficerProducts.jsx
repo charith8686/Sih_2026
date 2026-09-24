@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../../config";
 ﻿import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { StatusBadge } from "../../components/StatusBadge";
@@ -12,7 +13,7 @@ export const OfficerProducts = () => {
 
   const fetchProducts = () => {
     setLoading(true);
-    fetch(`http://127.0.0.1:8000/api/officer/products`, {
+    fetch(`${API_BASE_URL}/api/officer/products`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then((res) => res.json())
@@ -28,7 +29,7 @@ export const OfficerProducts = () => {
   const handleDelete = async (p) => {
     if (!window.confirm(`Delete product ${p.name} (${p.product_code})?`)) return;
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/products/${p.id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/products/${p.id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` }
       });

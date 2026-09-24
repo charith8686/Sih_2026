@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../../config";
 import React, { useState, useEffect, useRef } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { LegalBasisModal } from "../../components/LegalBasisModal";
@@ -59,7 +60,7 @@ export const OfficerScanner = ({ onNavigate }) => {
     formData.append("multi_pass", multiPass ? "true" : "false");
 
     try {
-      const res = await fetch(`http://127.0.0.1:8000/api/ocr`, {
+      const res = await fetch(`${API_BASE_URL}/api/ocr`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
         body: formData
@@ -83,7 +84,7 @@ export const OfficerScanner = ({ onNavigate }) => {
       const mfgCat = result.compliance.categories.find((c) => c.rule_id === "LM-01");
       const mfgName = mfgCat?.extracted_value || "ABC Foods Pvt Ltd";
 
-      const res = await fetch(`http://127.0.0.1:8000/api/officer/inspections`, {
+      const res = await fetch(`${API_BASE_URL}/api/officer/inspections`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -497,7 +498,7 @@ export const OfficerScanner = ({ onNavigate }) => {
                 <div style={{ textAlign: "center" }}>
                   {result.annotated_image_url ? (
                     <img
-                      src={`http://127.0.0.1:8000${result.annotated_image_url}`}
+                      src={`${API_BASE_URL}${result.annotated_image_url}`}
                       alt="Annotated Evidence"
                       style={{ maxWidth: "100%", maxHeight: "450px", borderRadius: "6px", border: "1px solid #e2e8f0" }}
                     />

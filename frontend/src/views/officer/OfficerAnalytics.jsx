@@ -1,3 +1,4 @@
+import { API_BASE_URL } from "../../config";
 ﻿import React, { useState, useEffect } from "react";
 import { useAuth } from "../../context/AuthContext";
 
@@ -6,7 +7,7 @@ export const OfficerAnalytics = () => {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/officer/dashboard`, {
+    fetch(`${API_BASE_URL}/api/officer/dashboard`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then((r) => r.json())
